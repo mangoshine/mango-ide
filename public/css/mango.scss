@@ -1,0 +1,143 @@
+/* --------------------------------------------
+ * Global Variables
+ * -------------------------------------------- */
+
+$topbarHeight: 35px;
+$lineNumbersWidth: 45px;
+$themeColor: #4d4d4d;
+$fontColor: #ebebeb;
+
+
+*, *:after, *:before {
+  -moz-box-sizing: border-box;
+       box-sizing: border-box;
+}
+
+html, body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  font-size: 14px;
+}
+
+body {
+  overflow: hidden;
+}
+
+#topBar {
+  width: 100%;
+  height: $topbarHeight;
+  background: $themeColor;
+  border-bottom: 2px solid #d3d3d3;
+}
+
+#leftMenu {
+  width: 200px;
+  float: left;
+  height: calc(100% - #{$topbarHeight});
+  background: $themeColor;
+  border-right: 1px solid rgb(80,80,80);
+}
+
+#editor {
+  height: calc(100% - #{$topbarHeight});
+  width: calc(100% - 200px);
+  float: left;
+  background: rgb(100,100,100);
+  font-family: consolas;
+  font-size: 1em;
+  line-height: 1em;
+  color: $fontColor;
+}
+
+#editorInput {
+  height: 100%;
+  width: calc(100% - #{$lineNumbersWidth});
+  float: left;
+  padding: 0;
+  border: none;
+  resize: none;
+  margin-left: calc(-100% + #{$lineNumbersWidth});
+  background: transparent;
+  color: transparent;
+  /*color: #f00;*/
+  font-family: consolas;
+  font-size: 1em;
+  line-height: 1em;
+  overflow: auto;
+  /*padding: 5px;*/
+}
+
+#editorInput:focus {
+  outline: none;
+}
+
+#editorOutput {
+  height: 100%;
+  width: calc(100% - #{$lineNumbersWidth});
+  /*width: 100%;*/
+  float: left;
+  background: transparent;
+  overflow: hidden;
+}
+
+#editorOutputText {
+  /*padding: 5px;*/
+  margin: 0;
+  font-family: consolas;
+  overflow: hidden;
+}
+
+#caret {
+  height: 0.9em;
+  width: 2px;
+  background: #ebebeb;
+  position: absolute;
+  /**margin-left: $lineNumbersWidth;*/
+  color: $fontColor;
+  top: -200px;
+  /*margin-left: 5px;*/
+  /*margin-top: 5px;*/
+
+}
+
+.blink {
+  -webkit-animation: blink 1s ease-in infinite;
+          animation: blink 1s ease-in infinite;
+}
+
+#hiddenSpan {
+  position: absolute;
+  top: -100px;
+  font-family: consolas;
+  font-size: 1em;
+}
+
+#lineNumbersPanel {
+  float: left;
+  width: $lineNumbersWidth;
+  height: 100%;
+  background: #222;
+  text-align: right;
+  padding-right: 10px;
+  overflow: hidden;
+}
+
+#currentLineHighlight {
+  background: rgba(214, 214, 214, 0.28);
+  width: 100%;
+  height: 1em;
+  margin-left: $lineNumbersWidth;
+  position: absolute;
+  pointer-events: none;
+}
+
+@-webkit-keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+}
