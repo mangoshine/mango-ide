@@ -66,6 +66,7 @@ body {
   line-height: 1em;
   overflow: auto;
   /*padding: 5px;*/
+  padding-bottom: 20px;
 }
 
 #editorInput:focus {
@@ -79,6 +80,7 @@ body {
   float: left;
   background: transparent;
   overflow: hidden;
+  padding-bottom: 20px;
 }
 
 #editorOutputText {
@@ -89,8 +91,8 @@ body {
 }
 
 #caret {
-  height: 0.9em;
-  width: 2px;
+  height: .9em;
+  width: 1px;
   background: #ebebeb;
   position: absolute;
   /**margin-left: $lineNumbersWidth;*/
@@ -121,23 +123,24 @@ body {
   text-align: right;
   padding-right: 10px;
   overflow: hidden;
+  padding-bottom: 20px;
 }
 
 #currentLineHighlight {
   background: rgba(214, 214, 214, 0.28);
-  width: 100%;
+  width: calc(100% - #{$lineNumbersWidth * 5.45});
   height: 1em;
   margin-left: $lineNumbersWidth;
   position: absolute;
   pointer-events: none;
 }
 
-@-webkit-keyframes blink {
+@-webkit-keyframes 'blink' {
   0% { opacity: 1; }
   50% { opacity: 0; }
 }
 
 @keyframes blink {
   0% { opacity: 1; }
-  50% { opacity: 0; }
+  100% { opacity: 0.2; }
 }
