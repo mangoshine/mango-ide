@@ -89,8 +89,8 @@
 
     handleEditorInputChange = function(evt) {
       editorOutputTextElement.innerHTML = '';
-      editorOutputTextElement.appendChild(document.createTextNode(editorInputElement.value));
-      //editorOutputTextElement.innerHTML = editorInputElement.value.replace(/\n/g,'<br/>');
+      //editorOutputTextElement.appendChild(document.createTextNode(editorInputElement.value));
+      editorOutputTextElement.innerHTML = editorInputElement.value.replace(/\n/g,'<br/>');
       if (editorOutputTextElement.innerHTML.slice(-1) === '\n') {
         editorOutputTextElement.innerHTML += ' ';
       } else {
@@ -109,7 +109,8 @@
       utils.addClass(caretElement, 'blink');
     },
 
-    handleEditorInputScroll = function() {
+    handleEditorInputScroll = function(evt) {
+      console.log(evt);
       editorOutputElement.scrollTop = editorInputElement.scrollTop;
       editorOutputTextElement.scrollLeft = editorInputElement.scrollLeft;
       lineNumbersPanelElement.scrollTop = editorInputElement.scrollTop;
