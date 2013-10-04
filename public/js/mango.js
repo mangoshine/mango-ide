@@ -18,6 +18,8 @@
         numOfLines = 1,
         prevNumOfLines = 1,
         topbarHeight = 35,
+        currentLineHeight = getComputedStyle(currentLineHighlightElement).height.slice(0, -2),
+        cursorWidth = getComputedStyle(caretElement).width.slice(0, -2),
 
     _getPosInCurrLine = function() {
       var caretPos = editorInputElement.selectionStart,
@@ -51,9 +53,19 @@
      * y is calculated by multiplying the height of 1 line by the number of lines down the caret is.
      */
     _getCaretPos = function() {
+      _getCaretPos.y = editorInputElement.offsetTop - editorInputElement.scrollTop + (_getCurrLine() * getComputedStyle(editorInputElement)['line-height'].slice(0, -2));
+      if (_getCaretPos.y > window.innerHeight - currentLineHeight) {
+        _getCaretPos.y = window.innerHeight - currentLineHeight;
+      }
+      
+      _getCaretPos.x = editorInputElement.offsetLeft + (_getPosInCurrLine() * hiddenSpanElement.offsetWidth);
+      if (_getCaretPos.x > window.innerWidth - cursorWidth) {
+        _getCaretPos.x = window.innerWidth - cursorWidth;
+      }
+      
       return {
-        x: editorInputElement.offsetLeft + (_getPosInCurrLine() * hiddenSpanElement.offsetWidth),
-        y: editorInputElement.offsetTop - editorInputElement.scrollTop + (_getCurrLine() * getComputedStyle(editorInputElement)['line-height'].slice(0, -2))
+        x: _getCaretPos.x,
+        y: _getCaretPos.y
       }
     },
 
@@ -80,7 +92,8 @@
     },
 
     _updateCurrentLineHighlight = function() {
-      currentLineHighlight.style.top = (_getCurrLine() * getComputedStyle(editorInputElement)['line-height'].slice(0, -2) + topbarHeight) + 'px';
+      //currentLineHighlight.style.top = (_getCurrLine() * getComputedStyle(editorInputElement)['line-height'].slice(0, -2) + topbarHeight - editorInputElement.scrollTop) + 'px';
+      currentLineHighlight.style.top = _getCaretPos().y + 'px';
     },
 
     // -----------------------------------
@@ -89,10 +102,12 @@
 
     handleEditorInputChange = function(evt) {
       editorOutputTextElement.innerHTML = '';
-      //editorOutputTextElement.appendChild(document.createTextNode(editorInputElement.value));
-      editorOutputTextElement.innerHTML = editorInputElement.value.replace(/\n/g,'<br/>');
+      editorOutputTextElement.appendChild(document.createTextNode(editorInputElement.value));
+      //editorOutputTextElement.innerHTML = editorInputElement.value.replace(/\n/g,'<br/>');
+      //editorOutputTextElement.innerHTML = editorInputElement.value.split('\n').join('<br/>');
+      //hljs.highlightBlock(editorOutputTextElement);
       if (editorOutputTextElement.innerHTML.slice(-1) === '\n') {
-        editorOutputTextElement.innerHTML += ' ';
+        //editorOutputTextElement.innerHTML += ' ';
       } else {
         //editorOutputTextElement.innerHTML = editorOutputTextElement.innerHTML.replace('&nbsp;','');
       }
