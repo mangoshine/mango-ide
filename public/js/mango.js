@@ -125,7 +125,6 @@
     },
 
     handleEditorInputScroll = function(evt) {
-      console.log(evt);
       editorOutputElement.scrollTop = editorInputElement.scrollTop;
       editorOutputTextElement.scrollLeft = editorInputElement.scrollLeft;
       lineNumbersPanelElement.scrollTop = editorInputElement.scrollTop;
