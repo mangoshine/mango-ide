@@ -242,14 +242,14 @@
 
       addClass: function(element, clazz) {
         var classes = element.className;
-        if (classes.indexOf(clazz) === -1) {
+        if (!utils.hasClass(element, clazz)) {
           element.className += clazz;
         }
       },
 
       removeClass: function(element, clazz) {
         var classes = element.className;
-        if (classes.indexOf(clazz) > -1) {
+        if (utils.hasClass(element, clazz)) {
           element.className = classes.split(clazz).join('');
         }
       },
