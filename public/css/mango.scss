@@ -10,7 +10,7 @@
  * -------------------------------------------- */
 
 $topBarHeight: 35px;
-$tabBarHeight: 19px;
+$tabBarHeight: 22px;
 $lineNumbersWidth: 45px;
 $themeColor: #4d4d4d;
 $fontColor: #ebebeb;
@@ -27,6 +27,8 @@ html, body {
   margin: 0;
   height: 100%;
   font-size: 14px;
+  font-family: 'Source Sans Pro', sans-serif;
+  line-height: 1em;
 }
 
 body {
@@ -171,6 +173,7 @@ a {
   background: black;
   border-radius: 4px 20px;
   cursor: pointer;
+  padding: 3px 0;
 }
 
 @-webkit-keyframes blink {
