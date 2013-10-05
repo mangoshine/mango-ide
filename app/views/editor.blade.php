@@ -12,7 +12,7 @@
     <a id="addNewFile" class="tab fontawesome-plus-sign" href="#"></a>
   </div>
   <div id="editor">
-    <div id="lineNumbersPanel">1</div>
+    <textarea id="lineNumbersPanel" readonly="true">1</textarea>
     <div id="currentLineHighlight"></div>
     <div id="editorOutput"><pre id="editorOutputText"></pre></div>
     <textarea id="editorInput" spellcheck="false" wrap="off"></textarea>

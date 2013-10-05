@@ -13,7 +13,8 @@
     }
     
     // DOM elements
-    var editorInputElement = document.getElementById('editorInput'),
+    var editorElement = document.getElementById('editor'),
+        editorInputElement = document.getElementById('editorInput'),
         editorOutputElement = document.getElementById('editorOutput'),
         editorOutputTextElement = document.getElementById('editorOutputText'),
         caretElement = document.getElementById('caret'),
@@ -86,13 +87,23 @@
     _updateLineNumbersPanel = function() {
       numOfLines = utils.stringOccurrences(editorInputElement.value, '\n');
 
+      //var replacementPanel = document.createElement('div');
+      //replacementPanel.id = 'lineNumbersPanel';
       if (prevNumOfLines !== numOfLines) {
-        for (var i = 1, s = ''; i < numOfLines; i++) {
-          s += (i + '<br/>');
+        for (var i = 1, s = ''; i <= numOfLines; i++) {
+          s += i + '\n';
+          //var line = document.createElement('span');
+          //utils.addClass(line, 'line');
+          //line.textContent = i;
+          //replacementPanel.appendChild(line);
+          //s += (i + ' ');
         }
+        lineNumbersPanelElement.value = s;
+        //replacementPanel.id = 'lineNumbersPanel';
+        //editorElement.replaceChild(replacementPanel, lineNumbersPanelElement);
+        //lineNumbersPanelElement = replacementPanel;
 
-        s += numOfLines;
-        lineNumbersPanelElement.innerHTML = s;
+        //lineNumbersPanelElement.innerHTML = s;
         prevNumOfLines = numOfLines;
       }
     },
@@ -134,7 +145,6 @@
     
     _switchToTab = function(tabNumber) {
       _cacheFile();
-      console.log('switchtotab : ' + tabNumber);
       var selectedFile = openedFiles[tabNumber];
       editorInputElement.value = selectedFile.text;
       currentFileIndex = tabNumber;
@@ -150,15 +160,28 @@
     // -----------------------------------
 
     handleEditorInputChange = function(evt) {
+      //var pre = document.createElement('pre');
+      //pre.appendChild(document.createTextNode(editorInputElement.value));
+      //pre.id = 'editorOutputText';
+      //editorOutputElement.replaceChild(pre, editorOutputTextElement);
+      //editorOutputTextElement = pre;
+      //console.log(evt);
+      //editorOutputTextElement.textContent = editorInputElement.value;
+      //console.log(editorOutputTextElement);
       editorOutputTextElement.innerHTML = '';
       editorOutputTextElement.appendChild(document.createTextNode(editorInputElement.value));
+      //editorOutputTextElement.innerHTML = editorInputElement.value.replace(/&/g, "&amp;")
+      //   .replace(/</g, "&lt;")
+      //   .replace(/>/g, "&gt;")
+      //   .replace(/"/g, "&quot;")
+      //   .replace(/'/g, "&#039;");
       //editorOutputTextElement.innerHTML = editorInputElement.value.replace(/\n/g,'<br/>');
       //editorOutputTextElement.innerHTML = editorInputElement.value.split('\n').join('<br/>');
       //hljs.highlightBlock(editorOutputTextElement);
       if (editorOutputTextElement.innerHTML.slice(-1) === '\n') {
-        //editorOutputTextElement.innerHTML += ' ';
+        editorOutputTextElement.innerHTML += ' ';
       } else {
-        //editorOutputTextElement.innerHTML = editorOutputTextElement.innerHTML.replace('&nbsp;','');
+        editorOutputTextElement.innerHTML = editorOutputTextElement.innerHTML.replace('&nbsp;','');
       }
       _positionCaret();
       _updateCurrentLineHighlight();
@@ -209,22 +232,29 @@
     handleNewFileClick = function(evt) {
       _cacheFile();
       var newFile = _addNewFile(),
-          newTab = document.createElement('a');
+          newTab = document.createElement('a'),
+          tabElements = tabBarElement.children;
       newTab.innerHTML = newFile.name;
       utils.addClass(newTab, 'tab');
+      utils.addClass(newTab, 'active');
+      utils.addClass(newTab, 'reveal');
       editorInputElement.value = '';
       handleEditorInputChange();
-      tabBar.appendChild(newTab);
-      console.log(openedFiles);
+      for (var i = 0, len = tabElements.length; i < len; i++) {
+        utils.removeClass(tabElements[i], 'active');
+      }
+      tabBarElement.insertBefore(newTab, newFileButtonElement);
     },
     
     handleTabSwitch = function(evt) {
       if (utils.hasClass(evt.target, 'tab') && !evt.target.id) {
-        console.log(evt);
         var tabElements = tabBarElement.children;
         for (var i = 0, len = tabElements.length; i < len; i++) {
           if (tabElements[i] === evt.target) {
-            _switchToTab(i-1);
+            _switchToTab(i);
+            utils.addClass(tabElements[i], 'active');
+          } else {
+            utils.removeClass(tabElements[i], 'active');
           }
         }
       }
@@ -236,14 +266,15 @@
       },
 
       stringOccurrences: function(str, sub) {
-        for (var i = str.indexOf(sub), count = 1; i != -1; i = str.indexOf(sub, i+1), count++);
-        return count;
+        //for (var i = str.indexOf(sub), count = 1; i != -1; i = str.indexOf(sub, i+1), count++);
+        //return count;
+        return (str.match(/\n/g)||[]).length + 1;
       },
 
       addClass: function(element, clazz) {
         var classes = element.className;
         if (!utils.hasClass(element, clazz)) {
-          element.className += clazz;
+          element.className += ' ' + clazz + ' ';
         }
       },
 

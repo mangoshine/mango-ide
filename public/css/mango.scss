@@ -142,6 +142,18 @@ a {
   text-align: right;
   padding-right: 10px;
   overflow: hidden;
+  line-height: 1em;
+  font-family: consolas;
+  font-size: 1em;
+  line-height: 1em;
+  resize: none;
+  padding: 0;
+  color: rgba(1,128,228,1);
+  border: none;
+}
+
+#lineNumbersPanel:focus {
+  outline: none;
 }
 
 #currentLineHighlight {
@@ -156,24 +168,36 @@ a {
 #addNewFile {
   width: 50px;
   float: left;
-  transition: all .2s;
 }
 
 #addNewFile:hover {
-  color: darken(rgb(226,226,226), 50%);
+  width: 100px;
 }
 
 .tab {
-  border: 1px solid white;
   text-align: center;
   display: block;
   width: 100px;
   float: left;
-  color: rgb(226,226,226);
+  color: rgba(226,226,226,.6);
   background: black;
   border-radius: 4px 20px;
   cursor: pointer;
   padding: 3px 0;
+  transition: .25s all;
+  box-shadow: 0px 1px 0px rgba(255,255,255,.4) inset;
+}
+
+.tab:hover {
+  color: rgba(1,128,228,1);
+  background: rgba(25,25,25,1);
+  box-shadow: 0px 1px 0px rgba(0,0,0,.4) inset, 0px 1px 0px rgba(255,255,255,.4);
+}
+
+.tab.active {
+  color: rgba(1,128,228,1);
+  background: rgba(25,25,25,1);
+  box-shadow: 0px 1px 0px rgba(0,0,0,.4) inset, 0px 1px 0px rgba(255,255,255,.4);
 }
 
 @-webkit-keyframes blink {
