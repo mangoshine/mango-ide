@@ -1,11 +1,20 @@
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+/* fontawesome */
+[class*="fontawesome-"]:before {
+  font-family: 'FontAwesome', sans-serif;
+}
+
 /* --------------------------------------------
  * Global Variables
  * -------------------------------------------- */
 
-$topbarHeight: 35px;
+$topBarHeight: 35px;
+$tabBarHeight: 19px;
 $lineNumbersWidth: 45px;
 $themeColor: #4d4d4d;
 $fontColor: #ebebeb;
+$leftMenuWidth: 200px;
 
 
 *, *:after, *:before {
@@ -24,23 +33,33 @@ body {
   overflow: hidden;
 }
 
+a {
+  text-decoration: none;
+}
+
 #topBar {
   width: 100%;
-  height: $topbarHeight;
+  height: $topBarHeight;
   background: $themeColor;
-  border-bottom: 2px solid #d3d3d3;
+}
+
+#tabBar {
+  width: calc(100% - #{$leftMenuWidth});
+  height: $tabBarHeight;
+  background: $themeColor;
+  float: left;
 }
 
 #leftMenu {
   width: 200px;
   float: left;
-  height: calc(100% - #{$topbarHeight});
+  height: calc(100% - #{$topBarHeight});
   background: $themeColor;
   border-right: 1px solid rgb(80,80,80);
 }
 
 #editor {
-  height: calc(100% - #{$topbarHeight});
+  height: calc(100% - #{$topBarHeight + $tabBarHeight});
   width: calc(100% - 200px);
   float: left;
   background: rgb(100,100,100);
@@ -125,11 +144,33 @@ body {
 
 #currentLineHighlight {
   background: rgba(214, 214, 214, 0.28);
-  width: 100%;
+  width: calc(100% - #{$lineNumbersWidth + $leftMenuWidth});
   height: 1em;
   margin-left: $lineNumbersWidth;
   position: absolute;
   pointer-events: none;
+}
+
+#addNewFile {
+  width: 50px;
+  float: left;
+  transition: all .2s;
+}
+
+#addNewFile:hover {
+  color: darken(rgb(226,226,226), 50%);
+}
+
+.tab {
+  border: 1px solid white;
+  text-align: center;
+  display: block;
+  width: 100px;
+  float: left;
+  color: rgb(226,226,226);
+  background: black;
+  border-radius: 4px 20px;
+  cursor: pointer;
 }
 
 @-webkit-keyframes blink {

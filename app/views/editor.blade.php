@@ -3,8 +3,13 @@
 <head>
   <link rel="stylesheet" href="css/mango.css" />
 <body>
-  <div id="topBar"></div>
+  <div id="topBar">
+    
+  </div>
   <div id="leftMenu"></div>
+  <div id="tabBar">
+    <a id="addNewFile" class="tab fontawesome-plus-sign" href="#"></a>
+  </div>
   <div id="editor">
     <div id="lineNumbersPanel">1</div>
     <div id="currentLineHighlight"></div>

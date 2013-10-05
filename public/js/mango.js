@@ -2,6 +2,16 @@
   'use strict';
 
   var Mango = (function() {
+    
+    function File() {
+      this.name;
+      this.text;
+      this.tabElement;
+      this.cursorPosition;
+      this.scrollTop;
+      this.scrollLeft;
+    }
+    
     // DOM elements
     var editorInputElement = document.getElementById('editorInput'),
         editorOutputElement = document.getElementById('editorOutput'),
@@ -10,6 +20,8 @@
         hiddenSpanElement = document.getElementById('hiddenSpan'),
         lineNumbersPanelElement = document.getElementById('lineNumbersPanel'),
         currentLineHighlightElement = document.getElementById('currentLineHighlight'),
+        tabBarElement = document.getElementById('tabBar'),
+        newFileButtonElement = document.getElementById('addNewFile'),
 
     // intervals
         _positionCaretInterval,
@@ -20,6 +32,8 @@
         topbarHeight = 35,
         currentLineHeight = getComputedStyle(currentLineHighlightElement).height.slice(0, -2),
         cursorWidth = getComputedStyle(caretElement).width.slice(0, -2),
+        openedFiles = [],
+        currentFileIndex = 0,
 
     _getPosInCurrLine = function() {
       var caretPos = editorInputElement.selectionStart,
@@ -95,6 +109,41 @@
       //currentLineHighlight.style.top = (_getCurrLine() * getComputedStyle(editorInputElement)['line-height'].slice(0, -2) + topbarHeight - editorInputElement.scrollTop) + 'px';
       currentLineHighlight.style.top = _getCaretPos().y + 'px';
     },
+    
+    _addNewFile = function() {
+      var newFile = new File();
+      newFile.name = 'index.html';
+      newFile.text = '';
+      newFile.cursorPosition = 0;
+      openedFiles.push(newFile);
+      currentFileIndex = openedFiles.length-1;
+      editorInputElement.selectionStart = 0;
+      
+      return newFile;
+    },
+    
+    _cacheFile = function() {
+      var currentFile = openedFiles[currentFileIndex];
+      if (currentFile) {
+        currentFile.text = editorInputElement.value;
+        currentFile.cursorPosition = editorInputElement.selectionStart;
+        currentFile.scrollTop = editorInputElement.scrollTop;
+        currentFile.scrollLeft = editorInputElement.scrollLeft;
+      }
+    },
+    
+    _switchToTab = function(tabNumber) {
+      _cacheFile();
+      console.log('switchtotab : ' + tabNumber);
+      var selectedFile = openedFiles[tabNumber];
+      editorInputElement.value = selectedFile.text;
+      currentFileIndex = tabNumber;
+      editorInputElement.selectionStart = selectedFile.cursorPosition;
+      editorInputElement.selectionEnd = selectedFile.cursorPosition;
+      editorInputElement.scrollTop = selectedFile.scrollTop;
+      editorInputElement.scrollLeft = selectedFile.scrollLeft;
+      handleEditorInputChange();
+    },
 
     // -----------------------------------
     // Event Handlers
@@ -116,6 +165,12 @@
 
       // update line numbers
       _updateLineNumbersPanel();
+      
+      // 
+      //if (editorInputElement.scrollWidth > editor)
+      if (editorInputElement.scrollWidth > getComputedStyle(editorInputElement).width.slice(0, -2)) {
+        
+      }
     },
 
     handleEditorInputClick = function() {
@@ -150,6 +205,30 @@
       _positionCaret();
       _updateCurrentLineHighlight();
     },
+    
+    handleNewFileClick = function(evt) {
+      _cacheFile();
+      var newFile = _addNewFile(),
+          newTab = document.createElement('a');
+      newTab.innerHTML = newFile.name;
+      utils.addClass(newTab, 'tab');
+      editorInputElement.value = '';
+      handleEditorInputChange();
+      tabBar.appendChild(newTab);
+      console.log(openedFiles);
+    },
+    
+    handleTabSwitch = function(evt) {
+      if (utils.hasClass(evt.target, 'tab') && !evt.target.id) {
+        console.log(evt);
+        var tabElements = tabBarElement.children;
+        for (var i = 0, len = tabElements.length; i < len; i++) {
+          if (tabElements[i] === evt.target) {
+            _switchToTab(i-1);
+          }
+        }
+      }
+    },
 
     utils = {
       stringSplice: function(str, index, remove, insert) {
@@ -173,12 +252,17 @@
         if (classes.indexOf(clazz) > -1) {
           element.className = classes.split(clazz).join('');
         }
+      },
+      
+      hasClass: function(element, clazz) {
+        return element.className.indexOf(clazz) > -1;
       }
     };
 
     return {
       init: function() {
         Mango.initEventing();
+        handleNewFileClick();
       },
 
       initEventing: function() {
@@ -187,13 +271,15 @@
         editorInputElement.addEventListener('keyup', handleKeyup);
         editorInputElement.addEventListener('click', handleEditorInputClick);
         editorInputElement.addEventListener('scroll', handleEditorInputScroll);
+        newFileButtonElement.addEventListener('click', handleNewFileClick);
+        tabBarElement.addEventListener('click', handleTabSwitch);
       }
     };
 
   })(Mango = {});
 
   // on ready
-  document.addEventListener('DOMContentLoaded', Mango.init, false);
+  //document.addEventListener('DOMContentLoaded', Mango.init, false);
   window.addEventListener('load', Mango.init, false);
 
 })(window);
