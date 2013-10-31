@@ -27,7 +27,7 @@ html, body {
   margin: 0;
   height: 100%;
   font-size: 14px;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Lato', sans-serif;
   line-height: 1em;
 }
 
@@ -43,6 +43,7 @@ a {
   width: 100%;
   height: $topBarHeight;
   background: $themeColor;
+  padding: 4px;
 }
 
 #tabBar {
@@ -181,9 +182,10 @@ a {
   float: left;
   color: rgba(226,226,226,.6);
   background: black;
-  border-radius: 4px 20px;
+  border-radius: 20px;
   cursor: pointer;
   padding: 3px 0;
+  margin-left: 5px;
   transition: .25s all;
   box-shadow: 0px 1px 0px rgba(255,255,255,.4) inset;
 }
@@ -194,10 +196,45 @@ a {
   box-shadow: 0px 1px 0px rgba(0,0,0,.4) inset, 0px 1px 0px rgba(255,255,255,.4);
 }
 
+.tab > span {
+  opacity: .5;
+  padding-left: 5px;
+  padding-top: 2px;
+  font-size: .9em;
+}
+
+.tab > span:hover {
+  opacity: 1;
+}
+
+.tab:first-child {
+  margin-left: 0px;
+}
+
 .tab.active {
   color: rgba(1,128,228,1);
   background: rgba(25,25,25,1);
   box-shadow: 0px 1px 0px rgba(0,0,0,.4) inset, 0px 1px 0px rgba(255,255,255,.4);
+}
+
+.button {
+  display: block;
+  background: #569e3d;
+  border-radius: 5px;
+  height: 29px;
+  width: 140px;
+  line-height: 29px;
+  text-align: center;
+  font-weight: 400;
+  float: right;
+  color: lightgray;
+  text-shadow: -1px -1px rgba(0,0,0,.45);
+  box-shadow: 0 0 2px rgba(0,0,0,.5);
+}
+
+.button:hover {
+  background: lighten(#569e3d, 5%);
+  cursor: pointer;
 }
 
 @-webkit-keyframes blink {
