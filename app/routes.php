@@ -15,3 +15,5 @@ Route::get('/', function()
 {
 	return View::make('editor');
 });
+
+Route::controller('login', 'LoginController');

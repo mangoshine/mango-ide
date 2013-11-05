@@ -6,7 +6,7 @@
   <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
 <body>
   <div id="topBar">
-    <a class="button">Log in with Github</a>
+    <a class="button" href="login">Log in with Github</a>
   </div>
   <div id="leftMenu"></div>
   <div id="tabBar">
