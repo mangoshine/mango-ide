@@ -13,6 +13,8 @@ class GithubController extends BaseController {
 
 	/**
 	 * Grant access to mango ide. Store access token in a session variable.
+	 *
+	 * Route: /ghauthenticate
 	 */
 	public function authenticate()
 	{
@@ -44,6 +46,8 @@ class GithubController extends BaseController {
 
 	/**
 	 * Access GitHub API.
+	 *
+	 * Route: /ghapi/{key?}
 	 */
 	public function githubApi($key = null)
 	{
@@ -61,6 +65,8 @@ class GithubController extends BaseController {
 
 	/**
 	 * Check if the user is logged in.
+	 *
+	 * Route: /ghcheckloggedin
 	 */
 	public function checkLoggedIn()
 	{

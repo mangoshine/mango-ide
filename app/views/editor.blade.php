@@ -9,8 +9,8 @@
   <div id="topBar">
     <?php
       $request = Request::create('/ghcheckloggedin', 'GET', array());
-	  $response = Route::dispatch($request)->getContent();
-	  if ($response === 'logged in') {
+      $response = Route::dispatch($request)->getContent();
+      if ($response === 'logged in') {
         $request = Request::create('/ghapi/user', 'GET', array());
         $response = Route::dispatch($request)->getContent();
         $json_response = json_decode($response, true);
