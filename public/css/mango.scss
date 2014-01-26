@@ -98,7 +98,8 @@ a {
   height: 100%;
   width: calc(100% - #{$lineNumbersWidth});
   /*width: 100%;*/
-  float: left;background: transparent;
+  float: left;
+  background: transparent;
   overflow: hidden;
 }
 
