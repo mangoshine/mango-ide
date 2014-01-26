@@ -17,3 +17,9 @@ Route::get('/', function()
 });
 
 Route::controller('login', 'LoginController');
+
+Route::get('ghauthenticate', 'GitHubController@authenticate');
+
+Route::get('ghcheckloggedin', 'GitHubController@checkLoggedIn');
+
+Route::get('ghapi/{key?}', 'GitHubController@githubApi');

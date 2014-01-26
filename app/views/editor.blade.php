@@ -6,7 +6,19 @@
   <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
 <body>
   <div id="topBar">
-    <a class="button" href="login">Log in with Github</a>
+    <?php
+      $request = Request::create('/ghcheckloggedin', 'GET', array());
+	  $response = Route::dispatch($request)->getContent();
+	  if ($response === 'logged in') {
+        $request = Request::create('/ghapi/user', 'GET', array());
+        $response = Route::dispatch($request)->getContent();
+        $json_response = json_decode($response, true);
+        $username = $json_response['login'];
+        echo '<span class="username">'.$username.'</span>';
+      } else {
+        echo '<a class="button" href="login">Log in with Github</a>';
+      }
+    ?>
   </div>
   <div id="leftMenu"></div>
   <div id="tabBar">
