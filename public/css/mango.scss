@@ -12,8 +12,12 @@
 $topBarHeight: 35px;
 $tabBarHeight: 22px;
 $lineNumbersWidth: 45px;
-$themeColor: #4d4d4d;
+$themePrimaryColor: #222;
+$themeSecondaryColor: #4e4d4d;
+$themeHoverColor: #1b2e46;
+$themeFontColor: #ccc;
 $fontColor: #ebebeb;
+$githubButtonColor: #49795d;
 $leftMenuWidth: 200px;
 
 
@@ -27,7 +31,7 @@ html, body {
   margin: 0;
   height: 100%;
   font-size: 14px;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   line-height: 1em;
 }
 
@@ -42,14 +46,14 @@ a {
 #topBar {
   width: 100%;
   height: $topBarHeight;
-  background: $themeColor;
+  background: $themePrimaryColor;
   padding: 4px;
 }
 
 #tabBar {
   width: calc(100% - #{$leftMenuWidth});
   height: $tabBarHeight;
-  background: $themeColor;
+  background: $themePrimaryColor;
   float: left;
 }
 
@@ -57,15 +61,16 @@ a {
   width: 200px;
   float: left;
   height: calc(100% - #{$topBarHeight});
-  background: $themeColor;
-  border-right: 1px solid rgb(80,80,80);
+  background: $themePrimaryColor;
+  padding-top: $tabBarHeight;
 }
 
 #editor {
   height: calc(100% - #{$topBarHeight + $tabBarHeight});
   width: calc(100% - 200px);
   float: left;
-  background: rgb(100,100,100);
+  padding: 8px 0 0 8px;
+  background: $themeSecondaryColor;
   font-family: consolas;
   font-size: 1em;
   line-height: 1em;
@@ -82,12 +87,10 @@ a {
   margin-left: calc(-100% + #{$lineNumbersWidth});
   background: transparent;
   color: transparent;
-  /*color: #f00;*/
   font-family: consolas;
   font-size: 1em;
   line-height: 1em;
   overflow: auto;
-  /*padding: 5px;*/
 }
 
 #editorInput:focus {
@@ -97,14 +100,12 @@ a {
 #editorOutput {
   height: 100%;
   width: calc(100% - #{$lineNumbersWidth});
-  /*width: 100%;*/
   float: left;
   background: transparent;
   overflow: hidden;
 }
 
 #editorOutputText {
-  /*padding: 5px;*/
   margin: 0;
   font-family: consolas;
   overflow: hidden;
@@ -115,11 +116,8 @@ a {
   width: 2px;
   background: #ebebeb;
   position: absolute;
-  /**margin-left: $lineNumbersWidth;*/
   color: $fontColor;
   top: -200px;
-  /*margin-left: 5px;*/
-  /*margin-top: 5px;*/
 
 }
 
@@ -139,9 +137,9 @@ a {
   float: left;
   width: $lineNumbersWidth;
   height: 100%;
-  background: #222;
+  background: $themePrimaryColor;
   text-align: right;
-  padding-right: 10px;
+  padding-right: 5px;
   overflow: hidden;
   line-height: 1em;
   font-family: consolas;
@@ -149,7 +147,7 @@ a {
   line-height: 1em;
   resize: none;
   padding: 0;
-  color: rgba(1,128,228,1);
+  color: #0180e4;
   border: none;
 }
 
@@ -179,21 +177,19 @@ a {
   text-align: center;
   display: block;
   width: 100px;
+  height: 100%;
   float: left;
-  color: rgba(226,226,226,.6);
-  background: black;
-  border-radius: 20px;
+  color: $themeFontColor;
+  background: $themePrimaryColor;
+  border-radius: 2px 2px 0 0;
   cursor: pointer;
   padding: 3px 0;
   margin-left: 5px;
   transition: .25s all;
-  box-shadow: 0px 1px 0px rgba(255,255,255,.4) inset;
 }
 
 .tab:hover {
-  color: rgba(1,128,228,1);
-  background: rgba(25,25,25,1);
-  box-shadow: 0px 1px 0px rgba(0,0,0,.4) inset, 0px 1px 0px rgba(255,255,255,.4);
+  background: $themeHoverColor;
 }
 
 .tab > span {
@@ -212,28 +208,26 @@ a {
 }
 
 .tab.active {
-  color: rgba(1,128,228,1);
-  background: rgba(25,25,25,1);
-  box-shadow: 0px 1px 0px rgba(0,0,0,.4) inset, 0px 1px 0px rgba(255,255,255,.4);
+  color: $themeFontColor;
+  background: $themeSecondaryColor;
 }
 
 .button {
   display: block;
-  background: #569e3d;
-  border-radius: 5px;
+  background: $githubButtonColor;
+  border-radius: 3px;
   height: 29px;
   width: 140px;
   line-height: 29px;
   text-align: center;
   font-weight: 400;
+  font-size: 1.1em;
   float: right;
-  color: lightgray;
-  text-shadow: -1px -1px rgba(0,0,0,.45);
-  box-shadow: 0 0 2px rgba(0,0,0,.5);
+  color: $fontColor;
 }
 
 .button:hover {
-  background: lighten(#569e3d, 5%);
+  background: lighten($githubButtonColor, 5%);
   cursor: pointer;
 }
 
@@ -244,6 +238,10 @@ a {
   text-align: center;
   color: $fontColor;
   padding: 0 8px;
+}
+
+.hidden {
+  display: none;
 }
 
 @-webkit-keyframes blink {
