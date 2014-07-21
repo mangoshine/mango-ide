@@ -10,20 +10,22 @@
     <?php
       $request = Request::create('/ghcheckloggedin', 'GET', array());
       $response = Route::dispatch($request)->getContent();
+	  $innerControls = '';
       if ($response === 'logged in') {
         $request = Request::create('/ghapi/user', 'GET', array());
         $response = Route::dispatch($request)->getContent();
         $json_response = json_decode($response, true);
         $username = $json_response['login'];
-        echo '<span class="username">'.$username.'</span>';
+		$innerControls = '<span class="control feather-cog"></span><span class="control feather-layout"></span>';
       } else {
-        echo '<a class="button" href="login">Log in with Github</a>';
+		$innerControls = '<a class="button" href="login">Log in with Github</a>';
       }
+	  echo '<div id="controls">'.$innerControls.'</div>';
     ?>
   </div>
   <div id="leftMenu"></div>
   <div id="tabBar">
-    <a id="addNewFile" class="tab fontawesome-plus-sign" href="#"></a>
+    <a id="addNewFile" class="tab feather-plus" href="#"></a>
   </div>
   <div id="editor">
     <textarea id="lineNumbersPanel" readonly="true">1</textarea>
