@@ -53,6 +53,7 @@ $themeFontColor: #ccc;
 $fontColor: #ebebeb;
 $githubButtonColor: #49795d;
 $leftMenuWidth: 200px;
+$editorFontFamily: Consolas, monaco, monospace;
 
 
 *, *:after, *:before {
@@ -119,7 +120,7 @@ a {
   float: left;
   padding: 8px 0 0 8px;
   background: $themeSecondaryColor;
-  font-family: consolas;
+  font-family: $editorFontFamily;
   font-size: 1em;
   line-height: 1em;
   color: $fontColor;
@@ -135,7 +136,7 @@ a {
   margin-left: calc(-100% + #{$lineNumbersWidth});
   background: transparent;
   color: transparent;
-  font-family: consolas;
+  font-family: $editorFontFamily;
   font-size: 1em;
   line-height: 1em;
   overflow: auto;
@@ -155,7 +156,7 @@ a {
 
 #editorOutputText {
   margin: 0;
-  font-family: consolas;
+  font-family: $editorFontFamily;
   overflow: hidden;
 }
 
@@ -177,7 +178,7 @@ a {
 #hiddenSpan {
   position: absolute;
   top: -100px;
-  font-family: consolas;
+  font-family: $editorFontFamily;
   font-size: 1em;
 }
 
@@ -189,7 +190,7 @@ a {
   text-align: right;
   overflow: hidden;
   line-height: 1em;
-  font-family: consolas;
+  font-family: $editorFontFamily;
   font-size: 1em;
   line-height: 1em;
   resize: none;
