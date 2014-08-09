@@ -51,6 +51,7 @@ $themeSecondaryColor: #4e4d4d;
 $themeHoverColor: #1b2e46;
 $themeFontColor: #ccc;
 $fontColor: #ebebeb;
+$controlFontColor: #bb9534;
 $githubButtonColor: #49795d;
 $leftMenuWidth: 200px;
 $editorFontFamily: Consolas, monaco, monospace;
@@ -96,7 +97,12 @@ a {
   vertical-align: middle;
   padding: 0 5px;
   font-size: 1.5em;
-  color: white;
+  color: $fontColor;
+}
+
+.control:hover {
+  cursor: pointer;
+  color: #BB9534;
 }
 
 #tabBar {
